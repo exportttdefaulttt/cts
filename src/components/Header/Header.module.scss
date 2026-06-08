@@ -1,0 +1,26 @@
+.header {
+    padding: 0px 20px 10px;
+    border-bottom: 1px solid #2c2c2c5c;
+
+    ul {
+        display: flex;
+        align-items: center;
+        column-gap: 6px;
+        color: #2c2c2c5c;
+        font-size: 24px;
+        font-weight: 700;
+
+        li {
+            &:nth-child(2) {
+                margin-left: auto;
+            }
+
+            a {
+                transition: color 0.5s ease;
+                &:hover {
+                    color: #150b0bb5;
+                }
+            }
+        }
+    }
+}

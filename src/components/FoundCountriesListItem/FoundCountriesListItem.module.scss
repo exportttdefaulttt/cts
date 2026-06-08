@@ -1,0 +1,25 @@
+.root {
+    padding-block: 5px;
+
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        column-gap: 10px;
+        cursor: pointer;
+    }
+
+    img {
+        border-radius: 100%;
+        height: 22px;
+        width: 22px;
+    }
+
+    h2 {
+        font-size: 14px;
+
+        span {
+            color: #e2e22b;
+        }
+    }
+}

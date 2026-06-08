@@ -1,0 +1,231 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.root {
+    animation: fadeIn 1s ease-out;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.img {
+    width: 100%;
+    height: auto;
+    max-height: 130px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    column-gap: 10px;
+    border-bottom: 1px solid rgba(44, 44, 44, 0.3607843137);
+}
+
+.name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #333;
+}
+
+.region {
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 12px;
+    color: #666666;
+}
+
+.area {
+    font-weight: 900;
+    font-size: 13px;
+    line-height: 13px;
+    color: #666666;
+
+    span {
+        font-size: 12px;
+        line-height: 12px;
+    }
+}
+
+.link2 {
+    display: none;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: max-content auto;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+    & > div {
+        display: contents;
+
+        p {
+            justify-self: end;
+            font-weight: 600;
+            color: #666666;
+            font-size: 15px;
+        }
+
+        span {
+            color: #333;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        &:last-child {
+            p,
+            span {
+                border-bottom: none;
+            }
+        }
+    }
+
+    & .row:last-child {
+        .col1, 
+        .col2 {
+            border-bottom: none;
+        }
+    }
+
+    .row {
+        display: contents;
+    }
+
+    .col1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        background-color: #bbb7b7;
+        border-right: 1px solid rgb(83, 81, 81);
+        border-bottom: 1px solid rgb(83, 81, 81);
+    }
+
+    .col2 {
+        padding: 5px;
+        text-align: center;
+        background-color: #9c9696;
+        border-bottom: 1px solid rgb(83, 81, 81);
+        border-left: none;
+    }
+
+    p {
+        font-weight: 500;
+        color: #666666;
+    }
+
+    span {
+        color: #333;
+        font-weight: 600;
+    }
+}
+
+.link {
+    align-self: center;
+    color: rgba(44, 44, 44, 0.3607843137);
+    font-weight: 700;
+    font-size: 18px;
+    transition: color 0.5s ease;
+
+    &:hover {
+        color: rgba(21, 11, 11, 0.7098039216);
+    }
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    .root {
+        position: relative;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .top {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+    .link2 {
+        display: block;
+        margin-left: 10px;
+        width: 24px;
+        height: 24px;
+        position: relative;
+        border: 2px solid rgba(44, 44, 44, 0.3607843137);
+        border-radius: 5px;
+        cursor: pointer;
+        transition: border-color 0.5s ease;
+
+        &:hover,
+        &:hover:before {
+            border-color: rgba(21, 11, 11, 0.7098039216);
+        }
+    
+        &:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-75%, -50%) rotate(225deg);
+            width: 9px;
+            height: 9px;
+            border-left: 2px solid rgba(44, 44, 44, 0.3607843137);
+            border-bottom: 2px solid rgba(44, 44, 44, 0.3607843137);
+            transition: border-color 0.5s ease;
+        }
+    }
+
+    .img {
+        max-width: 50px;
+        max-height: 50px;
+    }
+
+    .main {
+        flex-grow: 1;
+        border-bottom: none;
+    }
+
+    .name {
+        font-size: 14px;
+        line-height: 14px;
+    }
+
+    .region {
+        display: none;
+    }
+
+    .info {
+        display: none;
+    }
+
+    .link {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) { 
+    .name {
+        display: none;
+    }
+}

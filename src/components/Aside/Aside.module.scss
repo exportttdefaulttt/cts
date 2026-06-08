@@ -1,0 +1,11 @@
+.aside {
+    display: grid;
+    grid-template-rows: auto auto minmax(263px, 1fr);
+    row-gap: 10px;
+    align-self: start;
+    
+    @media (max-width: 768px) {
+        grid-template-rows: auto auto;
+        row-gap: 5px;
+    }
+}
