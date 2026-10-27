@@ -2,10 +2,6 @@ import type { CountryPicker } from '@yusifaliyevpro/countries/types';
 import type { CountryFields, AppRegion } from '@/api';
 
 export const transformCountry = (country: CountryPicker<CountryFields>) => {
-    if (country.flag.url_png === '') {
-        console.log(country);
-    }
-    
     return {
         name: country.names.common,
         officialName: country.names.official,

@@ -1,34 +1,21 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import { createAppAsyncThunk } from '@/store/helpers';
+import { fetchCountriesByRegion } from '@/store/slices/countriesByRegion/thunks';
 import type { AppRegion, LoadingStatus, Pagination } from '@/api';
 import type { Country } from '@/utils/transformCountry';
 
-export const fetchCountriesByRegion = createAppAsyncThunk(
-    'countriesByRegion/fetchCountriesByRegion',
-    (region: AppRegion, { extra }) => extra.api.getCountriesByRegion(region),
-    {
-        condition: (region, { getState }) => {
-            const { regionLoadedCountries } = getState().countriesByRegion;
-            return regionLoadedCountries !== region;
-        }
-    }
-);
-
-type CountriesByRegionState = {
-    countriesByRegion: Country[];
-    countriesByRegionLoadingStatus: LoadingStatus;
+interface CountriesByRegionState {
+    countries: Country[];
+    loadingStatus: LoadingStatus;
     activeRegion: AppRegion;
-    regionLoadedCountries: AppRegion | null;
-    isOddStep: boolean;
+    regionLoaded: AppRegion | null;
     pagination: Pagination;
 };
 
 const initialState: CountriesByRegionState = {
-    countriesByRegion: [],
-    countriesByRegionLoadingStatus: 'loading',
+    countries: [],
+    loadingStatus: 'loading',
     activeRegion: 'Europe',
-    regionLoadedCountries: null,
-    isOddStep: true,
+    regionLoaded: null,
     pagination: {
         currentPage: 1,
         totalItems: null,
@@ -53,39 +40,34 @@ const countriesByRegionSlice = createSlice({
                 Math.ceil(state.pagination.totalItems! / state.pagination.itemsPerPage)
             );
         },
-        updateStepFlag: (state, action: PayloadAction<boolean>) => {
-            state.isOddStep = action.payload;
-        },
         resetPagination: (state) => {
             state.pagination.currentPage = 1;
-            state.pagination.itemsPerPage = state.isOddStep ? 9 : 10;
         },
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchCountriesByRegion.pending, (state) => {
-                state.countriesByRegionLoadingStatus = 'loading';
+                state.loadingStatus = 'loading';
             })
             .addCase(fetchCountriesByRegion.fulfilled, (state, action) => {
-                state.countriesByRegionLoadingStatus = 'success';
-                state.countriesByRegion = action.payload;
+                state.loadingStatus = 'success';
+                state.countries = action.payload;
                 state.pagination.totalItems = action.payload.length;
                 state.pagination.currentPage = 1;
-                state.regionLoadedCountries = action.meta.arg;
+                state.regionLoaded = action.meta.arg;
             })
             .addCase(fetchCountriesByRegion.rejected, (state) => {
-                state.countriesByRegionLoadingStatus = 'error';
-                state.countriesByRegion = [];
+                state.loadingStatus = 'error';
+                state.countries = [];
                 state.pagination.totalItems = null;
-                state.regionLoadedCountries = null;
+                state.regionLoaded = null;
             })
             .addDefaultCase(() => { });
     },
     selectors: {
-        selectCountriesByRegion: (state) => state.countriesByRegion,
-        selectCountriesByRegionLoadingStatus: (state) => state.countriesByRegionLoadingStatus,
+        selectCountries: (state) => state.countries,
+        selectLoadingStatus: (state) => state.loadingStatus,
         selectActiveRegion: (state) => state.activeRegion,
-        selectIsOddStep: (state) => state.isOddStep,
         selectPagination: (state) => state.pagination,
         selectPaginationTotalItems: (state) => state.pagination.totalItems,
         selectPaginationItemsPerPage: (state) => state.pagination.itemsPerPage,
@@ -93,23 +75,8 @@ const countriesByRegionSlice = createSlice({
     },
 });
 
-export const {
-    selectCountriesByRegion,
-    selectCountriesByRegionLoadingStatus,
-    selectActiveRegion,
-    selectIsOddStep,
-    selectPagination,
-    selectPaginationTotalItems,
-    selectPaginationItemsPerPage,
-    selectPaginationCurrentPage
-} = countriesByRegionSlice.selectors;
+export const countriesByRegionActions = countriesByRegionSlice.actions;
 
-export const {
-    updateActiveRegion,
-    updateCurrentPage,
-    updateItemsPerPage,
-    updateStepFlag,
-    resetPagination
-} = countriesByRegionSlice.actions;
+export const countriesByRegionSelectors = countriesByRegionSlice.selectors;
 
 export default countriesByRegionSlice.reducer;

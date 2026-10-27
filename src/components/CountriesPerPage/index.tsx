@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
-import { selectPaginationItemsSettings, selectCountriesByRegionLoadingStatusFlags } from '@/store/slices/countriesByRegion/selectors';
-import { updateItemsPerPage, updateStepFlag } from '@/store/slices/countriesByRegion/actions';
+import { selectPaginationItemsSettings, selectLoadingStatusFlags } from '@/store/slices/countriesByRegion/selectors';
+import { updateItemsPerPage } from '@/store/slices/countriesByRegion/actions';
 
 import styles from './CountriesPerPage.module.scss';
 
@@ -14,7 +14,7 @@ const CountriesPerPage = () => {
         maxItemsPerPage
     } = useAppSelector(selectPaginationItemsSettings);
 
-    const { isLoading } = useAppSelector(selectCountriesByRegionLoadingStatusFlags);
+    const { isLoading } = useAppSelector(selectLoadingStatusFlags);
 
     const dispatch = useAppDispatch();
 
@@ -25,21 +25,6 @@ const CountriesPerPage = () => {
         
         return `linear-gradient(90deg, #525252 ${ratio}%, #dddddd ${ratio}%)`;
     }, [value, minItemsPerPage, maxItemsPerPage]);
-
-    useEffect(() => {
-        const updateSettings = () => {
-            const screenWidth = window.innerWidth;
-            dispatch(updateStepFlag(screenWidth > 992));
-            setValue(prevValue => screenWidth > 992 ? Math.max(9, Math.round(Number(prevValue) / 3) * 3) : Math.max(10, Math.round(Number(prevValue) / 2) * 2));
-        };
-
-        updateSettings();
-        window.addEventListener('resize', updateSettings);
-
-        return () => {
-            window.removeEventListener('resize', updateSettings);
-        };
-    }, [dispatch]);
 
     useEffect(() => {
         const timerId = setTimeout(() => dispatch(updateItemsPerPage(Number(value))), 1000);

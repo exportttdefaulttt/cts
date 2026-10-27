@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import type { RefObject } from 'react';
-import type { Country } from '@/api';
+import type { Country } from '@/utils/transformCountry';
 
 import CountriesListItem from '@/components/CountriesListItem';
 import Spinner from '@/components/Spinner';

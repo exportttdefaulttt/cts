@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
-import { selectActiveRegion, selectCountriesByRegionLoadingStatusFlags } from '@/store/slices/countriesByRegion/selectors';
+import { selectActiveRegion, selectLoadingStatusFlags } from '@/store/slices/countriesByRegion/selectors';
 import { updateActiveRegion } from '@/store/slices/countriesByRegion/actions';
 import { REGIONS } from '@/utils/constants';
 import type { AppRegion } from '@/api';
@@ -9,7 +9,7 @@ import styles from './RegionalFilter.module.scss';
 const RegionalFilter = () => {
 
     const activeRegion = useAppSelector(selectActiveRegion);
-    const { isLoading } = useAppSelector(selectCountriesByRegionLoadingStatusFlags);
+    const { isLoading } = useAppSelector(selectLoadingStatusFlags);
 
     const dispatch = useAppDispatch();
 

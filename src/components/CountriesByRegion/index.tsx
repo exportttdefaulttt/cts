@@ -1,12 +1,13 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { useAppSelector, useAppDispatch } from '@/store/hooks';
 import { 
-    selectCountriesByRegionWithPagination, 
+    selectCountriesWithPagination, 
     selectPaginationPagesInfo,
-    selectCountriesByRegionLoadingStatusFlags,
+    selectLoadingStatusFlags,
     selectActiveRegion
 } from '@/store/slices/countriesByRegion/selectors';
-import { fetchCountriesByRegion, updateCurrentPage, resetPagination } from '@/store/slices/countriesByRegion/actions';
+import { updateCurrentPage, resetPagination } from '@/store/slices/countriesByRegion/actions';
+import { fetchCountriesByRegion } from '@/store/slices/countriesByRegion/thunks';
 import { updateSelectedCountryName } from '@/store/slices/countryInfo/actions';
 import { scrollToElement } from '@/utils/scrollToElement';
 import CountriesList from '@/components/CountriesList';
@@ -16,9 +17,9 @@ import styles from './CountriesByRegion.module.scss';
 
 const CountriesByRegion = () => {
 
-    const countries = useAppSelector(selectCountriesByRegionWithPagination);
+    const countries = useAppSelector(selectCountriesWithPagination);
 
-    const { isLoading, isError } = useAppSelector(selectCountriesByRegionLoadingStatusFlags);
+    const { isLoading, isError } = useAppSelector(selectLoadingStatusFlags);
 
     const { 
         totalPages,
