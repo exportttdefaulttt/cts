@@ -12,6 +12,7 @@ import { updateSelectedCountryName } from '@/store/slices/countryInfo/actions';
 import { scrollToElement } from '@/utils/scrollToElement';
 import CountriesList from '@/components/CountriesList';
 import Pagination from '@/components/Pagination';
+import clsx from 'clsx';
 
 import styles from './CountriesByRegion.module.scss';
 
@@ -57,8 +58,8 @@ const CountriesByRegion = () => {
     }, [dispatch]);
 
     return (
-        <>
-            <div className={styles.content}>
+        <div className={styles.wrapper}>
+            <div className={clsx(styles.content, { [styles.centered]:  !countries.length && isLoading || isError })}>
                 <CountriesList 
                     countries={countries}
                     isLoading={isLoading}
@@ -77,7 +78,7 @@ const CountriesByRegion = () => {
                 isLoading={isLoading}
                 onUpdatePage={onUpdatePage}
             />
-        </>
+        </div>
     );
 }
  
