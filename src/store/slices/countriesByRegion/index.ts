@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { createAppAsyncThunk } from '@/store/helpers';
-import type { AppRegion, LoadingStatus, Country, Pagination } from '@/api';
+import type { AppRegion, LoadingStatus, Pagination } from '@/api';
+import type { Country } from '@/utils/transformCountry';
 
 export const fetchCountriesByRegion = createAppAsyncThunk(
     'countriesByRegion/fetchCountriesByRegion',

@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { createAppAsyncThunk } from '@/store/helpers';
-import type { Country, LoadingStatus } from '@/api';
+import type { LoadingStatus } from '@/api';
+import type { Country } from '@/utils/transformCountry';
 
 export const fetchSearchCountries = createAppAsyncThunk(
     'searchCountries/fetchSearchCountries',

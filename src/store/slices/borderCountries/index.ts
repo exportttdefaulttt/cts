@@ -1,10 +1,11 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { createAppAsyncThunk } from '@/store/helpers';
-import type { Country, LoadingStatus, Codes, Pagination } from '@/api';
+import type { LoadingStatus, Pagination } from '@/api';
+import type { Country } from '@/utils/transformCountry';
 
 export const fetchBorderCountries = createAppAsyncThunk(
     'borderCountries/fetchBorderCountries',
-    (codes: Codes, { extra }) => extra.api.getCountriesByCodes(codes)
+    (codes: string[], { extra }) => extra.api.getCountriesByCodes(codes)
 );
 
 type BorderCountriesState = {

@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.12.0",
-    "@yusifaliyevpro/countries": "^2.3.2",
+    "@yusifaliyevpro/countries": "^5.2.6",
     "clsx": "^2.1.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
